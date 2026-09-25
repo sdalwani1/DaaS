@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "db:check": "tsx --env-file=.env src/scripts/db-check.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "tsx --env-file=.env src/scripts/seed.ts"
   },
   "keywords": [],
   "author": "",
