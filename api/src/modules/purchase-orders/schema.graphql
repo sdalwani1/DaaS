@@ -1,0 +1,54 @@
+type Vendor {
+  id: ID!
+  name: String!
+}
+
+type Product {
+  id: ID!
+  sku: String!
+  name: String!
+}
+
+type PurchaseOrderLine {
+  id: ID!
+  product: Product!
+  qtyOrdered: Int!
+  qtyReceived: Int!
+}
+
+enum PurchaseOrderStatus {
+  OPEN
+  PARTIAL
+  RECEIVED
+}
+
+type PurchaseOrder {
+  id: ID!
+  poNumber: String!
+  vendor: Vendor!
+  notes: String
+  status: PurchaseOrderStatus!
+  lines: [PurchaseOrderLine!]!
+  createdAt: String!
+}
+
+input CreatePurchaseOrderLineInput {
+  productId: ID!
+  qtyOrdered: Int!
+}
+
+input CreatePurchaseOrderInput {
+  poNumber: String!
+  vendorId: ID!
+  notes: String
+  lines: [CreatePurchaseOrderLineInput!]!
+}
+
+type Query {
+  purchaseOrders(status: PurchaseOrderStatus): [PurchaseOrder!]!
+  purchaseOrder(id: ID!): PurchaseOrder
+}
+
+type Mutation {
+  createPurchaseOrder(input: CreatePurchaseOrderInput!): PurchaseOrder!
+}
