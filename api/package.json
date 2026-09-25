@@ -7,7 +7,8 @@
   "scripts": {
     "db:check": "tsx --env-file=.env src/scripts/db-check.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "tsx --env-file=.env src/scripts/seed.ts"
+    "seed": "tsx --env-file=.env src/scripts/seed.ts",
+    "dev": "tsx watch --env-file=.env src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,9 @@
   "packageManager": "pnpm@12.6.0",
   "type": "module",
   "dependencies": {
+    "@apollo/server": "^5.5.1",
     "drizzle-orm": "^0.45.3",
+    "graphql": "^17.0.2",
     "pg": "^8.23.0"
   },
   "devDependencies": {
