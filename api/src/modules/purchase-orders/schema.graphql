@@ -68,3 +68,10 @@ input ReceivePurchaseOrderInput {
 extend type Mutation {
   receivePurchaseOrder(input: ReceivePurchaseOrderInput!): PurchaseOrder!
 }
+
+type Query {
+  purchaseOrders(status: PurchaseOrderStatus): [PurchaseOrder!]!
+  purchaseOrder(id: ID!): PurchaseOrder
+  vendors: [Vendor!]!
+  products: [Product!]!
+}

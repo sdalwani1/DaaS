@@ -117,3 +117,11 @@ export async function receiveLines(input: {
     return input.purchaseOrderId;
   });
 }
+
+export async function listVendors() {
+  return db.query.vendors.findMany({ where: isNull(vendors.deletedAt) });
+}
+
+export async function listProducts() {
+  return db.query.products.findMany({ where: isNull(products.deletedAt) });
+}

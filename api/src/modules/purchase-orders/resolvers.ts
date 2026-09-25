@@ -7,6 +7,8 @@ export const purchaseOrderResolvers = {
       service.getPurchaseOrders(args.status),
     purchaseOrder: (_p: unknown, args: { id: string }, _ctx: GraphQLContext) =>
       service.getPurchaseOrder(args.id),
+    vendors: () => service.getVendors(),
+    products: () => service.getProducts(),
   },
   Mutation: {
     createPurchaseOrder: (_p: unknown, args: { input: Parameters<typeof service.createPurchaseOrder>[0] }, _ctx: GraphQLContext) =>

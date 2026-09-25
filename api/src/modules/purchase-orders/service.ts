@@ -48,3 +48,11 @@ export async function receivePurchaseOrder(
   const poId = await dbLayer.receiveLines({ ...input, createdBy: actingUser.userId });
   return getPurchaseOrder(poId);
 }
+
+export async function getVendors() {
+  return dbLayer.listVendors();
+}
+
+export async function getProducts() {
+  return dbLayer.listProducts();
+}

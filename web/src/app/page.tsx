@@ -1,7 +1,8 @@
 "use client";
 
-import { Alert, Chip, CircularProgress, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Chip, CircularProgress, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography, Button } from "@mui/material";
 import { useGetPurchaseOrdersQuery, type PurchaseOrderStatus } from "@/store/purchaseOrdersApi";
+import Link from "next/link";
 
 const statusColor: Record<PurchaseOrderStatus, "warning" | "info" | "success"> = {
   OPEN: "warning",
@@ -15,6 +16,9 @@ export default function Home() {
   return (
     <Stack spacing={3} sx={{ p: 4 }}>
       <Typography variant="h4">Purchase Orders</Typography>
+      <Button component={Link} href="/purchase-orders/new" variant="contained">
+        New Purchase Order
+      </Button>
 
       {isLoading && <CircularProgress />}
 
