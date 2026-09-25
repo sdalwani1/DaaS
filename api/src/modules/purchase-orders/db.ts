@@ -1,6 +1,6 @@
 import { and, eq, isNull, inArray, sql } from "drizzle-orm";
 import { db } from "../../db/client.js";
-import { purchaseOrders, purchaseOrderLines, vendors, products, stockMovements, stockLevels } from "../../db/schema.js";
+import { purchaseOrders, purchaseOrderLines, vendors, products, stockMovements, stockLevels, locations } from "../../db/schema.js";
 
 export async function listPurchaseOrders() {
   return db.query.purchaseOrders.findMany({
@@ -124,4 +124,8 @@ export async function listVendors() {
 
 export async function listProducts() {
   return db.query.products.findMany({ where: isNull(products.deletedAt) });
+}
+
+export async function listLocations() {
+  return db.query.locations.findMany({ where: isNull(locations.deletedAt) });
 }

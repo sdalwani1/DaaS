@@ -3,6 +3,7 @@
 import { Alert, Chip, CircularProgress, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography, Button } from "@mui/material";
 import { useGetPurchaseOrdersQuery, type PurchaseOrderStatus } from "@/store/purchaseOrdersApi";
 import Link from "next/link";
+import { ReceiveForm } from "@/components/ReceiveForm";
 
 const statusColor: Record<PurchaseOrderStatus, "warning" | "info" | "success"> = {
   OPEN: "warning",
@@ -41,12 +42,26 @@ export default function Home() {
           <TableBody>
             {purchaseOrders.map((po) => (
               <TableRow key={po.id}>
-                <TableCell>{po.poNumber}</TableCell>
-                <TableCell>{po.vendor.name}</TableCell>
-                <TableCell>
+                <TableCell sx={{ verticalAlign: "top" }}>{po.poNumber}</TableCell>
+                <TableCell sx={{ verticalAlign: "top" }}>{po.vendor.name}</TableCell>
+                <TableCell sx={{ verticalAlign: "top" }}>
                   <Chip label={po.status} color={statusColor[po.status]} size="small" />
                 </TableCell>
-                <TableCell>{po.lines.length}</TableCell>
+                <TableCell>
+                  <Stack spacing={1}>
+                    {po.lines.map((line) => {
+                      const remaining = line.qtyOrdered - line.qtyReceived;
+                      return (
+                        <Stack key={line.id} spacing={0.5}>
+                          <Typography variant="body2">
+                            {line.product.sku} — {line.qtyReceived}/{line.qtyOrdered} received
+                          </Typography>
+                          {remaining > 0 && <ReceiveForm po={po} lineId={line.id} remaining={remaining} />}
+                        </Stack>
+                      );
+                    })}
+                  </Stack>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -56,3 +56,7 @@ export async function getVendors() {
 export async function getProducts() {
   return dbLayer.listProducts();
 }
+
+export async function getLocations() {
+  return dbLayer.listLocations();
+}

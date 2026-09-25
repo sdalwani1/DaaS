@@ -75,3 +75,16 @@ type Query {
   vendors: [Vendor!]!
   products: [Product!]!
 }
+
+type Location {
+  id: ID!
+  code: String!
+}
+
+type Query {
+  purchaseOrders(status: PurchaseOrderStatus): [PurchaseOrder!]!
+  purchaseOrder(id: ID!): PurchaseOrder
+  vendors: [Vendor!]!
+  products: [Product!]!
+  locations: [Location!]!
+}
