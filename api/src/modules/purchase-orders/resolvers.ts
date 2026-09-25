@@ -11,5 +11,9 @@ export const purchaseOrderResolvers = {
   Mutation: {
     createPurchaseOrder: (_p: unknown, args: { input: Parameters<typeof service.createPurchaseOrder>[0] }, _ctx: GraphQLContext) =>
       service.createPurchaseOrder(args.input),
+    receivePurchaseOrder: (_p: unknown, args: { input: Parameters<typeof service.receivePurchaseOrder>[0] }, ctx: GraphQLContext) => {
+      if (!ctx.user) throw new Error("UNAUTHENTICATED");
+      return service.receivePurchaseOrder(args.input, ctx.user);
+    },
   },
 };

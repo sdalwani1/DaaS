@@ -52,3 +52,19 @@ type Query {
 type Mutation {
   createPurchaseOrder(input: CreatePurchaseOrderInput!): PurchaseOrder!
 }
+
+input ReceiveLineInput {
+  lineId: ID!
+  qty: Int!
+  locationId: ID!
+}
+
+input ReceivePurchaseOrderInput {
+  purchaseOrderId: ID!
+  idempotencyKey: String!
+  lines: [ReceiveLineInput!]!
+}
+
+extend type Mutation {
+  receivePurchaseOrder(input: ReceivePurchaseOrderInput!): PurchaseOrder!
+}

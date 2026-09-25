@@ -33,3 +33,18 @@ export async function createPurchaseOrder(input: {
   const id = await dbLayer.insertPurchaseOrder(input);
   return getPurchaseOrder(id);
 }
+
+export async function receivePurchaseOrder(
+  input: {
+    purchaseOrderId: string;
+    idempotencyKey: string;
+    lines: { lineId: string; qty: number; locationId: string }[];
+  },
+  actingUser: { userId: string; role: string }
+) {
+  if (actingUser.role !== "warehouse" && actingUser.role !== "admin") {
+    throw new Error("FORBIDDEN: only warehouse or admin can receive stock");
+  }
+  const poId = await dbLayer.receiveLines({ ...input, createdBy: actingUser.userId });
+  return getPurchaseOrder(poId);
+}
